@@ -1,16 +1,18 @@
-package com.java.product.service.entity;
+package com.java.product.service.category.entity;
 
+import com.java.product.service.subcategory.entity.SubCategory;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+
 @Entity
 @Table(
         name = "categories",
         indexes = {
-                @Index(name = "idx_category_name",columnList = "category_name"),
+                @Index(name = "idx_category_name", columnList = "category_name"),
         }
 )
 @Getter
@@ -33,4 +35,8 @@ public class Category {
     @ToString.Exclude
     private Set<SubCategory> subCategory = new HashSet<>();
 
+    public void addSubCategory(final SubCategory subCategory) {
+        this.subCategory.add(subCategory);
+        subCategory.setCategory(this);
+    }
 }

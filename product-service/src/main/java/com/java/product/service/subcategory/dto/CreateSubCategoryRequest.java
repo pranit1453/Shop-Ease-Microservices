@@ -1,4 +1,4 @@
-package com.java.product.service.dto;
+package com.java.product.service.subcategory.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
