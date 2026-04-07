@@ -16,14 +16,12 @@ public record CreateProductRequest(
                 message = "Product name should be in between 3 and 50")
         String productName,
         @Length(min = 3,
-                max = 50,
-                message = "Category name should be in between 3 and 50")
+                max = 500,
+                message = "Category name should be in between 3 and 500")
         String productDescription,
         @NotNull(message = "Product price cannot be null")
-        @NotBlank(message = "Product price is mandatory")
         Double productPrice,
         @NotNull(message = "subCategoryId cannot be null")
-        @NotBlank(message = "subCategoryId is mandatory")
         UUID subCategoryId
 ) {
 }

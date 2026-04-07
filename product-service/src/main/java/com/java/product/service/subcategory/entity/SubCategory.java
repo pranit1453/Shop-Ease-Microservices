@@ -13,7 +13,7 @@ import java.util.UUID;
 @Table(
         name = "sub_categories",
         indexes = {
-                @Index(name = "idx_subCategory_name", columnList = "subCategory_name")
+                @Index(name = "idx_subcategory_name", columnList = "sub_category_name")
         }
 )
 @Getter
@@ -25,9 +25,9 @@ public class SubCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID subCategoryId;
-    @Column(name = "subCategory_name", nullable = false)
+    @Column(name = "sub_category_name", nullable = false)
     private String subCategoryName;
-    @Column(name = "subCategory_description")
+    @Column(name = "sub_category_description")
     private String subCategoryDescription;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)

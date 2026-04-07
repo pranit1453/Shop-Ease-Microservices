@@ -33,10 +33,10 @@ public class Category {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     @ToString.Exclude
-    private Set<SubCategory> subCategory = new HashSet<>();
+    private Set<SubCategory> subCategories = new HashSet<>();
 
     public void addSubCategory(final SubCategory subCategory) {
-        this.subCategory.add(subCategory);
+        this.subCategories.add(subCategory);
         subCategory.setCategory(this);
     }
 }

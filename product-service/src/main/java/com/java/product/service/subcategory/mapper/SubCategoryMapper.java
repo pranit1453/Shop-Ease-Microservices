@@ -2,6 +2,7 @@ package com.java.product.service.subcategory.mapper;
 
 import com.java.product.service.subcategory.dto.CreateSubCategoryRequest;
 import com.java.product.service.subcategory.dto.CreateSubCategoryResponse;
+import com.java.product.service.subcategory.dto.SubCategoryResponseDto;
 import com.java.product.service.subcategory.entity.SubCategory;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,7 +15,10 @@ public interface SubCategoryMapper {
 
     @Mapping(target = "subCategoryId", ignore = true)
     @Mapping(target = "products", ignore = true)
+    @Mapping(target = "category", ignore = true)
     SubCategory toSubCategoryEntity(CreateSubCategoryRequest request);
 
     CreateSubCategoryResponse toSubCategoryResponse(SubCategory subCategory);
-}
+
+    @Mapping(source = "category.categoryId", target = "categoryId")
+    SubCategoryResponseDto toSubCategoryDto(SubCategory subCategory);}

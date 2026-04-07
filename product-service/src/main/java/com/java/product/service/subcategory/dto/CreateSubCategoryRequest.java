@@ -16,11 +16,10 @@ public record CreateSubCategoryRequest(
                 message = "Sub Category name should be in between 3 and 50")
         String subCategoryName,
         @Length(min = 3,
-                max = 50,
-                message = "Sub Category name should be in between 3 and 50")
+                max = 500,
+                message = "Sub Category name should be in between 3 and 500")
         String subCategoryDescription,
         @NotNull(message = "CategoryId cannot be null")
-        @NotBlank(message = "CategoryId is mandatory")
         UUID categoryId
 ) {
 }

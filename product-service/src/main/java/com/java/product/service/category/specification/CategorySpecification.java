@@ -10,9 +10,11 @@ public class CategorySpecification {
 
             if (search == null || search.isBlank()) return cb.conjunction();
 
-            return cb.like(
-                    cb.lower(root.get("categoryName"))
-                    , "%" + search.toLowerCase() + "%"
+            String pattern = "%" + search.trim().toLowerCase() + "%";
+
+            return cb.or(
+                    cb.like(cb.lower(root.get("categoryName")), pattern),
+                    cb.like(cb.lower(root.get("categoryDescription")), pattern)
             );
         };
 
