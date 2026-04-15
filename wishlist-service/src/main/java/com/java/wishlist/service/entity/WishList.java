@@ -1,9 +1,6 @@
 package com.java.wishlist.service.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -14,11 +11,15 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class WishList {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID wishlistId;
-    private UUID productId;
-    private String productName;
-    private String productDescription;
-    private Double productPrice;
+
+    @Column(nullable = false, unique = true)
+    private UUID userId;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "wishList", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WishListItem> items = new ArrayList<>();
 }

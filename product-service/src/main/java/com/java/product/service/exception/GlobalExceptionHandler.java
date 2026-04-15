@@ -1,31 +1,55 @@
 package com.java.product.service.exception;
 
 import com.java.product.service.wrapper.ApiResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.Instant;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(BaseException.class)
-    public ApiResponse<Object> handleBaseException(BaseException ex) {
-        return ApiResponse.builder()
-                .status(false)
-                .message(ex.getMessage())
-                .data(null)
-                .timestamp(Instant.now())
-                .build();
+    public ResponseEntity<ApiResponse<Object>> handleBaseException(BaseException ex) {
+        return ResponseEntity
+                .status(ex.getStatus())
+                .body(ApiResponse.builder()
+                        .status(false)
+                        .message(ex.getMessage())
+                        .data(null)
+                        .timestamp(Instant.now())
+                        .build());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiResponse<Object>> handleValidationException(MethodArgumentNotValidException ex) {
+        String message = ex.getBindingResult().getFieldErrors()
+                .stream()
+                .map(e -> e.getField() + ": " + e.getDefaultMessage())
+                .collect(Collectors.joining(", "));
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.builder()
+                        .status(false)
+                        .message(message)
+                        .data(null)
+                        .timestamp(Instant.now())
+                        .build());
     }
 
     @ExceptionHandler(Exception.class)
-    public ApiResponse<Object> handleException(Exception ex) {
-        return ApiResponse.builder()
-                .status(false)
-                .message(ex.getMessage())
-                .data(null)
-                .timestamp(Instant.now())
-                .build();
+    public ResponseEntity<ApiResponse<Object>> handleException(Exception ex) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.builder()
+                        .status(false)
+                        .message(ex.getMessage())
+                        .data(null)
+                        .timestamp(Instant.now())
+                        .build());
     }
 }

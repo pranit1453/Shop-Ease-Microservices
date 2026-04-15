@@ -1,6 +1,7 @@
 package com.java.wishlist.service.controller;
 
 import com.java.wishlist.service.dto.AddProductToWishListRequest;
+import com.java.wishlist.service.dto.CartToWishlist;
 import com.java.wishlist.service.entity.WishList;
 import com.java.wishlist.service.service.WishListService;
 import jakarta.validation.Valid;
@@ -22,5 +23,12 @@ public class WishListController {
     public ResponseEntity<String> addToWishList(@Valid @RequestBody AddProductToWishListRequest request){
         wishListService.addToWishlist(request);
         return ResponseEntity.ok("Product added to Wishlist successfully");
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<String> addFromCartToWishlist(@Valid
+                                                        @RequestBody CartToWishlist request){
+        wishListService.itemFromCartToWishlist(request);
+        return ResponseEntity.ok("Product added to Wishlist successfully(Removed From Cart)");
     }
 }

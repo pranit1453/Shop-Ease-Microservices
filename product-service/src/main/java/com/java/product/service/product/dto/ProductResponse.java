@@ -9,6 +9,6 @@ public record ProductResponse(
         UUID productId,
         String productName,
         String productDescription,
-        Double Price
+        Double price
 ) {
 }

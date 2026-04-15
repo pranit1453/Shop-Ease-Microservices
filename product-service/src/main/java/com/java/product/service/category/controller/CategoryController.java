@@ -75,6 +75,21 @@ public class CategoryController {
                         .build());
     }
 
+    @PatchMapping("/patch/{id}")
+    public ResponseEntity<ApiResponse<PatchCategoryResponse>> patchCategoryById(
+            @Valid @PathVariable UUID id,
+            @Valid @RequestBody final PatchCategoryRequest request
+    ){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiResponse.<PatchCategoryResponse>builder()
+                        .status(true)
+                        .message("Successfully patched Category Details")
+                        .data(categoryService.patchCategoryDetails(id,request))
+                        .timestamp(Instant.now())
+                        .build());
+    }
+
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<ApiResponse<Void>>  deleteCategoryById(
             @Valid @PathVariable final UUID id

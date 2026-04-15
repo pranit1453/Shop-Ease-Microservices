@@ -28,4 +28,11 @@ public interface CategoryMapper {
     void updateCategoryFromRequest(UpdateCategoryRequest request, @MappingTarget Category category);
 
     UpdateCategoryResponse toUpdateCategoryResponse(Category category);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "categoryId", ignore = true)
+    @Mapping(target = "subCategories", ignore = true)
+    void patchCategoryFromRequest(PatchCategoryRequest request, @MappingTarget Category category);
+
+    PatchCategoryResponse toPatchCategoryResponse(Category category);
 }

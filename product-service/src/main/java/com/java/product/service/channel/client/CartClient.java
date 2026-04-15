@@ -11,7 +11,7 @@ public interface CartClient {
     @PostMapping("/api/v1/cart/items")
     void addToCart(@RequestBody  AddToCartRequest request);
 }
-
+// cache
 /*
 @EnableFeignClients in main method then its proxy implementation get created at runtime
 1. @FeignClient(...)
@@ -21,3 +21,4 @@ public interface xxxClient
 3. Convert Methods to Http call
 4. send request to target service
  */
+

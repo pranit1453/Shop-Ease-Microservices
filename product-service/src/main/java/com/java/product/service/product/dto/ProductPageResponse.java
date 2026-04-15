@@ -9,6 +9,8 @@ public record ProductPageResponse(
         UUID productId,
         String productName,
         String productDescription,
-        Double price
+        Double price,
+        UUID subCategoryId,
+        String subCategoryName
 ) {
 }

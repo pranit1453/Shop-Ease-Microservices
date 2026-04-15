@@ -100,6 +100,19 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
+    public PatchCategoryResponse patchCategoryDetails(final UUID id, final PatchCategoryRequest request) {
+        Category category = categoryRepository.findByCategoryId(id)
+                .orElseThrow(()->
+                        new ResourceNotFoundException("Category with id " + id + " not found"));
+
+        categoryMapper.patchCategoryFromRequest(request, category);
+
+        Category savedCategory = categoryRepository.save(category);
+        return categoryMapper.toPatchCategoryResponse(savedCategory);
+    }
+
+    @Override
+    @Transactional
     public Void deleteCategoryDetailsById(final UUID id) {
         if (!categoryRepository.existsById(id)) {
             throw new ResourceNotFoundException("Category with id " + id + " not found");

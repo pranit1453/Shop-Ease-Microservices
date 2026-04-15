@@ -16,5 +16,7 @@ public interface CategoryService {
 
     UpdateCategoryResponse updateCategoryDetails(@Valid UUID id, @Valid UpdateCategoryRequest request);
 
+    PatchCategoryResponse patchCategoryDetails(@Valid UUID id, @Valid PatchCategoryRequest request);
+
     Void deleteCategoryDetailsById(@Valid UUID id);
 }
